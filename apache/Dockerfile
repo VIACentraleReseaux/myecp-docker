@@ -1,11 +1,14 @@
 FROM debian:jessie
 
+ENV SYMFONY_VAGRANT true
+
 # Install apache2 / PHP + exts
-RUN apt-get update && apt-get install -y apache2 php5 curl php5-ldap php5-gd php5-curl php5-cli php5-intl php-apc php5-pgsql php5-mysql php5-sqlite phpunit
+RUN apt-get clean && apt-get update && apt-get install -y --fix-missing apache2 php5 curl php5-ldap php5-gd php5-curl php5-cli php5-intl php-apc php5-pgsql php5-mysql php5-sqlite phpunit
 
 # Configure MyECP Vhost
 ADD myecp.conf /etc/apache2/sites-available/
-RUN a2dissite myecp.conf
+RUN a2dissite 000-default.conf
+RUN a2ensite myecp.conf
 
 # Configure Apache2 modules
 RUN a2enmod rewrite && a2enmod ssl
