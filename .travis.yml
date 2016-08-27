@@ -11,7 +11,6 @@ before_install:
 
 script:
   - docker-compose up -d
-  - sleep 100
   - docker-compose ps |grep "apache.*443"
   - docker-compose ps |grep "mysql.*3306"
   - docker-compose ps |grep "postgres.*5432"
