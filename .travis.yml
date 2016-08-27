@@ -10,5 +10,9 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 script:
-  - docker-compose up
+  - docker-compose up -d
+  - sleep 100
+  - docker-compose ps |grep "apache.*443"
+  - docker-compose ps |grep "mysql.*3306"
+  - docker-compose ps |grep "postgres.*5432"
 
